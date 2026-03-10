@@ -1,0 +1,133 @@
+# @baseUrl = https://expense-api-3zp1.onrender.com
+@baseUrl = http://localhost:3000
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTk4YTU2NjJmNGE0YzMxZWZjZThkYSIsImlhdCI6MTc3Mjc2NDY2NSwiZXhwIjoxNzczMzY5NDY1fQ.A_AI8EWAuEBvFed5Surm4n0lH4lAD-ngJrVycCUrP7A
+
+
+// Check Server Status
+GET {{baseUrl}}
+
+###
+
+// Register New User
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "name": "root admin1",
+    "email": "rootadmin1@gmail.com",
+    "password": "1234567",
+    "phone": "092345678"
+}
+
+###
+
+// Login
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "rootadmin1@gmail.com",
+    "password": "1234567"
+}
+
+###
+
+// Get Current User Info
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{token}}
+
+###
+
+// Get All Categories
+GET {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+
+###
+
+// Create Category
+POST {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Category 10",
+    "description": "bla bla bla"
+}
+
+###
+
+// Update Category
+PATCH {{baseUrl}}/categories/69a90c65108764536e235834
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Category 4 Updated",
+    "description": "updated description"
+}
+
+###
+
+// Create product
+POST {{baseUrl}}/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Computer2",
+    "price": 4500000,
+    "stock": 10,
+    "categoryId": "69a90c6f108764536e235837",
+    "barcode": "12345678"
+}
+
+###
+
+// Update product
+PATCH {{baseUrl}}/products/69a90c6f108764536e235837
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Computer3",
+    "price": 4800000,
+    "stock": 15,
+    "barcode": "123456789"
+}
+
+###
+
+// Get all products 
+GET {{baseUrl}}/products
+Authorization: Bearer {{token}}
+
+###
+
+// Delete product
+DELETE {{baseUrl}}/products/699e6bda1862f50488631452
+Authorization: Bearer {{token}}
+
+###
+
+// Create Sale 
+POST {{baseUrl}}/sales
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "paymentMethod": "Cash",
+    "saleItems": [
+        {
+            "productId": "69a90c6f108764536e235837",
+            "quantity": 2,
+            "price": 4800000
+        }
+    ]
+}
+
+###
+
+// Get Sales Report (Admin only)
+GET {{baseUrl}}/sales/report
+Authorization: Bearer {{token}}
